@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Фарида зейнетке шығу кеші</title>
-   
+    
+    <link rel="icon" type="image/x-icon" href="favicon.ico"> 
+    
     <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Noto+Sans+KR:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
         /* Базовые стили для body */
@@ -55,19 +57,17 @@
 
         /* Контейнер для фиксированного анимированного фона и блесток */
         .animated-background {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    /* ИЗМЕНИТЕ ЭТУ СТРОКУ: */
-    background: linear-gradient(135deg, #FDF5E6, #FFFFF0); /* Очень светлый кремовый градиент */
-    /* НА ЭТУ (добавьте альфа-канал к цветам): */
-    background: linear-gradient(135deg, rgba(253, 245, 230, 0.7), rgba(255, 255, 240, 0.7)); /* Сделано полупрозрачным (0.5 - 50% прозрачности) */
-    background-size: 200% 200%;
-    animation: gradientAnimation 15s ease infinite alternate;
-    z-index: -2;
-}
+            position: fixed; /* Фиксирует фон на месте */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* ИЗМЕНЕНО: Сделан полупрозрачным, чтобы было видно слайдшоу */
+            background: linear-gradient(135deg, rgba(253, 245, 230, 0.5), rgba(255, 255, 240, 0.5)); 
+            background-size: 200% 200%;
+            animation: gradientAnimation 15s ease infinite alternate; /* Анимация градиента */
+            z-index: -2; /* Нижний слой, над слайдшоу */
+        }
 
         /* Анимация градиента */
         @keyframes gradientAnimation {
@@ -281,7 +281,7 @@
         </a>
 
         <button id="toggle-music" class="whatsapp-button" style="margin-top: 20px;">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a2/Muted_Speaker_Icon.svg" alt="Muted Music Icon" class="whatsapp-icon">
+            <img src="Muted_Speaker_Icon.svg" alt="Muted Music Icon" class="whatsapp-icon"> 
             Музыканы қосу / өшіру
         </button>
 
@@ -308,7 +308,8 @@
                         musicStarted = true;
                         music.muted = false; // Размьютить после успешного запуска
                         if (toggleButton) {
-                            toggleButton.innerHTML = '<img src="https://upload.wikimedia.org/wikipedia/commons/e/e5/Speaker_Icon.svg" alt="Music Icon" class="whatsapp-icon"> Музыканы өшіру';
+                            // ИЗМЕНЕНО: Предполагается, что вы скачали этот SVG и положили рядом с index.html
+                            toggleButton.innerHTML = '<img src="Speaker_Icon.svg" alt="Music Icon" class="whatsapp-icon"> Музыканы өшіру';
                         }
                     }).catch(error => {
                         // Ошибка воспроизведения (например, блокировка браузером)
@@ -316,7 +317,7 @@
                                      "Или файл поврежден/кодек не поддерживается.", error);
                         // Оставляем кнопку в состоянии "Музыканы қосу", если не удалось запустить
                         if (toggleButton) {
-                               toggleButton.innerHTML = '<img src="https://upload.wikimedia.org/wikipedia/commons/a/a2/Muted_Speaker_Icon.svg" alt="Muted Music Icon" class="whatsapp-icon"> Музыканы қосу';
+                               toggleButton.innerHTML = '<img src="Muted_Speaker_Icon.svg" alt="Muted Music Icon" class="whatsapp-icon"> Музыканы қосу';
                         }
                     });
                 }
@@ -327,7 +328,6 @@
             }
 
             // Добавляем слушатели событий на весь документ, чтобы поймать первый клик/скролл/тач
-            // Это запустит музыку (и размьютит) после первого взаимодействия пользователя со страницей.
             document.addEventListener('click', startMusicOnInteraction);
             document.addEventListener('scroll', startMusicOnInteraction);
             document.addEventListener('touchstart', startMusicOnInteraction); // Для мобильных устройств
@@ -343,73 +343,103 @@
                         if (music.paused) {
                             music.play();
                             music.muted = false; // Убедиться, что не заглушено
-                            toggleButton.innerHTML = '<img src="https://upload.wikimedia.org/wikipedia/commons/e/e5/Speaker_Icon.svg" alt="Music Icon" class="whatsapp-icon"> Музыканы өшіру';
+                            // ИЗМЕНЕНО: Предполагается, что вы скачали этот SVG и положили рядом с index.html
+                            toggleButton.innerHTML = '<img src="Speaker_Icon.svg" alt="Music Icon" class="whatsapp-icon"> Музыканы өшіру';
                         } else {
                             music.pause();
-                            toggleButton.innerHTML = '<img src="https://upload.wikimedia.org/wikipedia/commons/a/a2/Muted_Speaker_Icon.svg" alt="Muted Music Icon" class="whatsapp-icon"> Музыканы қосу';
+                            // ИЗМЕНЕНО: Предполагается, что вы скачали этот SVG и положили рядом с index.html
+                            toggleButton.innerHTML = '<img src="Muted_Speaker_Icon.svg" alt="Muted Music Icon" class="whatsapp-icon"> Музыканы қосу';
                         }
                     }
                 });
 
                 // Инициализация текста кнопки при загрузке страницы, если музыка еще не играет
-                // Это нужно, если браузер не позволил autoplay muted, и кнопка должна быть "включить"
                 if (music.paused || music.muted) {
-                    toggleButton.innerHTML = '<img src="https://upload.wikimedia.org/wikipedia/commons/a/a2/Muted_Speaker_Icon.svg" alt="Muted Music Icon" class="whatsapp-icon"> Музыканы қосу';
+                    // ИЗМЕНЕНО: Предполагается, что вы скачали этот SVG и положили рядом с index.html
+                    toggleButton.innerHTML = '<img src="Muted_Speaker_Icon.svg" alt="Muted Music Icon" class="whatsapp-icon"> Музыканы қосу';
                 }
             }
         });
 
-        /* --- НОВЫЙ JAVASCRIPT ДЛЯ ФОНОВОГО СЛАЙДЕРА --- */
+        /* --- JAVASCRIPT ДЛЯ ФОНОВОГО СЛАЙДЕРА С КОНСОЛЬНЫМИ ЛОГАМИ --- */
+        // ДОБАВЛЕН ЛОГ В НАЧАЛЕ СКРИПТА
+        console.log("=== Скрипт для слайдшоу запущен ===");
+
         const backgroundImages = [
             'background_images/photo1.jpg',
             'background_images/photo2.jpg',
             'background_images/photo3.jpg',
             'background_images/photo4.jpg',
             'background_images/photo5.jpg'
-            // Добавьте здесь пути ко всем вашим фоновым изображениям
-            // Например: 'background_images/my_photo_6.png', 'background_images/party_pic.webp'
         ];
 
         const slideshowContainer = document.querySelector('.background-slideshow');
         let currentImageIndex = 0;
 
         function updateBackgroundSlideshow() {
+            // ДОБАВЛЕН ЛОГ В НАЧАЛЕ ФУНКЦИИ
+            console.log(`--- updateBackgroundSlideshow вызвана. Текущий индекс: ${currentImageIndex} ---`);
+
+            // Удаляем класс 'active' со старого активного слайда (если есть)
+            const activeSlide = slideshowContainer.querySelector('.slide-image.active');
+            if (activeSlide) {
+                activeSlide.classList.remove('active');
+                // ДОБАВЛЕН ЛОГ
+                console.log("Удален класс 'active' со старого слайда.");
+            }
+
             // Создаем новый элемент изображения
             const imgElement = document.createElement('div');
             imgElement.classList.add('slide-image');
             imgElement.style.backgroundImage = `url('${backgroundImages[currentImageIndex]}')`;
             
             slideshowContainer.appendChild(imgElement);
+            // ДОБАВЛЕН ЛОГ
+            console.log(`Создан и добавлен новый слайд для: ${backgroundImages[currentImageIndex]}`);
 
             // Добавляем класс 'active' через небольшую задержку
-            // Это нужно, чтобы CSS transition сработал корректно
             setTimeout(() => {
                 imgElement.classList.add('active');
-            }, 50); // Очень маленькая задержка
+                // ДОБАВЛЕН ЛОГ
+                console.log(`Класс 'active' добавлен новому слайду.`);
+            }, 50);
 
             // Удаляем старые слайды после завершения их анимации, чтобы не накапливать элементы в DOM
-            // Время должно соответствовать transition transform (8s)
             const removeAfter = 8000; 
             setTimeout(() => {
                 const oldSlides = slideshowContainer.querySelectorAll('.slide-image');
                 oldSlides.forEach(slide => {
-                    if (slide !== imgElement) { // Удаляем все, кроме текущего активного
-                        slide.remove();
+                    // Удаляем все слайды, которые не являются текущим новым активным слайдом
+                    // и не имеют класса 'active' (т.е. они уже завершили анимацию исчезновения).
+                    // Это предотвращает удаление текущего или еще активного слайда
+                    if (slide !== imgElement && !slide.classList.contains('active')) { 
+                         slide.remove();
+                         // ДОБАВЛЕН ЛОГ
+                         console.log("Старый неактивный слайд удален из DOM.");
                     }
                 });
             }, removeAfter);
 
 
             currentImageIndex = (currentImageIndex + 1) % backgroundImages.length;
+            // ДОБАВЛЕН ЛОГ
+            console.log(`Индекс для следующего изображения установлен на: ${currentImageIndex}`);
         }
 
         // Запускаем слайдшоу каждые 8 секунд (длительность трансформации)
-        // Интервал должен быть равен или чуть больше длительности анимации transform
-        setInterval(updateBackgroundSlideshow, 8000); 
+        // ДОБАВЛЕН ЛОГ
+        console.log("Запускаем setInterval для слайдшоу.");
+        setInterval(() => {
+            // ДОБАВЛЕН ЛОГ ВНУТРИ setInterval
+            console.log("--- setInterval сработал! ---");
+            updateBackgroundSlideshow();
+        }, 8000);
 
         // Вызываем функцию один раз при загрузке страницы, чтобы показать первое изображение
+        // ДОБАВЛЕН ЛОГ ПЕРЕД ПЕРВЫМ ВЫЗОВОМ
+        console.log("Первый вызов updateBackgroundSlideshow при загрузке страницы.");
         updateBackgroundSlideshow();
-        /* --- КОНЕЦ НОВОГО JAVASCRIPT --- */
+        /* --- КОНЕЦ JAVASCRIPT ДЛЯ СЛАЙДЕРА --- */
 
         // JavaScript для создания анимированных блесток
         function createGlitterParticle() {
