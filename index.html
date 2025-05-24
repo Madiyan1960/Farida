@@ -31,7 +31,7 @@
       position: absolute;
       width: 200%;
       height: 200%;
-      background-image: radial-gradient(circle, rgba(255,255,255,0.4) 1px, transparent 1px);
+      background-image: radial-gradient(circle, rgba(255,255,255,0.3) 1px, transparent 1px);
       background-size: 50px 50px;
       animation: move 40s linear infinite;
       z-index: -1;
@@ -52,7 +52,7 @@
       font-family: 'Great Vibes', cursive;
       font-size: 48px;
       color: #fff4ec;
-      margin-bottom: 20px;
+      margin: 20px 0;
     }
 
     .invitation-text {
@@ -90,14 +90,20 @@
       background-color: #ffe2c6;
     }
 
-    .flower {
-      width: 90px;
-      animation: pulse 3s infinite;
+    .photo {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid white;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+      margin-bottom: 20px;
+      animation: pulse 5s infinite;
     }
 
     @keyframes pulse {
       0% { transform: scale(1); opacity: 1; }
-      50% { transform: scale(1.1); opacity: 0.85; }
+      50% { transform: scale(1.03); opacity: 0.95; }
       100% { transform: scale(1); opacity: 1; }
     }
 
@@ -107,12 +113,19 @@
       font-size: 16px;
       cursor: pointer;
     }
+
+    @media print {
+      .button, .music-control { display: none; }
+      body { background: white; color: black; }
+    }
   </style>
 </head>
 <body>
   <div class="background"></div>
   <div class="container">
-    <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" alt="flower" class="flower">
+    <!-- 🖼 Фото Фариды -->
+    <img src="photo.jpg" alt="Фарида" class="photo" />
+    
     <h1>Фарида зейнетке шығу</h1>
     <div class="invitation-text">
       Зейнетке шығу кешімнің <br><strong>Құрметті қонағы болыңыздар!</strong>
@@ -124,14 +137,16 @@
       📍 <strong>Мекенжайы:</strong> «Ақ Арман» мейрамханасы, Алматы қаласы
     </div>
 
-    <a class="button" href="https://wa.me/77001234567?text=Сәлеметсіз бе! Зейнетке шығу кешіне қатысу туралы хабарласып тұрмын." target="_blank">
+    <!-- 📲 WhatsApp жауап -->
+    <a class="button" href="https://wa.me/77001234567?text=Сәлеметсіз бе! Зейнетке шығу кешіне қатысамын." target="_blank">
       Жауап беру (WhatsApp)
     </a>
 
-    <div class="music-control" onclick="toggleMusic()">🔊 Музыканы тоқтату / қосу</div>
+    <!-- 🎵 Музыка -->
+    <div class="music-control" onclick="toggleMusic()">🔊 Музыканы қосу / тоқтату</div>
 
     <audio id="bg-music" autoplay loop>
-      <source src="https://cdn.pixabay.com/audio/2023/02/24/audio_cfd87fd0e7.mp3" type="audio/mpeg">
+      <source src="https://cdn.pixabay.com/audio/2022/11/01/audio_55f80f28c4.mp3" type="audio/mpeg">
       Сіздің браузеріңіз аудио ойнатуды қолдамайды.
     </audio>
   </div>
