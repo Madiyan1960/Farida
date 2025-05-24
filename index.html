@@ -55,16 +55,19 @@
 
         /* Контейнер для фиксированного анимированного фона и блесток */
         .animated-background {
-            position: fixed; /* Фиксирует фон на месте */
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #FDF5E6, #FFFFF0); /* Очень светлый кремовый градиент */
-            background-size: 200% 200%;
-            animation: gradientAnimation 15s ease infinite alternate; /* Анимация градиента */
-            z-index: -2; /* Нижний слой, над слайдшоу */
-        }
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* ИЗМЕНИТЕ ЭТУ СТРОКУ: */
+    background: linear-gradient(135deg, #FDF5E6, #FFFFF0); /* Очень светлый кремовый градиент */
+    /* НА ЭТУ (добавьте альфа-канал к цветам): */
+    background: linear-gradient(135deg, rgba(253, 245, 230, 0.5), rgba(255, 255, 240, 0.5)); /* Сделано полупрозрачным (0.5 - 50% прозрачности) */
+    background-size: 200% 200%;
+    animation: gradientAnimation 15s ease infinite alternate;
+    z-index: -2;
+}
 
         /* Анимация градиента */
         @keyframes gradientAnimation {
