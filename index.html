@@ -1,146 +1,150 @@
 <!DOCTYPE html>
 <html lang="kk">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Фарида зейнетке шығу кеші</title>
-    <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Noto+Sans+KR:wght@300;400&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Noto Sans KR', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #FDF5E6; /* Кремовый фон */
-            color: #4B0082; /* Индиго */
-            line-height: 1.8;
-            text-align: center;
-            overflow: hidden; /* Скрываем прокрутку, если частицы выходят за пределы */
-            position: relative; /* Для позиционирования частиц */
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Фарида зейнетке шығу</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Open+Sans&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Open Sans', sans-serif;
+      color: #fff;
+      text-align: center;
+      overflow-x: hidden;
+    }
 
-        /* Стиль для анимированных частиц */
-        .particle {
-            position: absolute;
-            background-color: #FFD700; /* Золотой цвет, можно добавить другие */
-            border-radius: 50%;
-            opacity: 0; /* Изначально невидимы */
-            animation: fall 10s linear infinite; /* Анимация падения */
-            pointer-events: none; /* Чтобы не мешали взаимодействию */
-        }
+    .background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(120deg, #ffecd2, #fcb69f);
+      z-index: -2;
+      overflow: hidden;
+    }
 
-        @keyframes fall {
-            0% {
-                transform: translateY(-100px) translateX(0);
-                opacity: 0;
-            }
-            10% {
-                opacity: 0.8;
-            }
-            100% {
-                transform: translateY(calc(100vh + 100px)) translateX(50px);
-                opacity: 0;
-            }
-        }
+    .background::before {
+      content: '';
+      position: absolute;
+      width: 200%;
+      height: 200%;
+      background-image: radial-gradient(circle, rgba(255,255,255,0.4) 1px, transparent 1px);
+      background-size: 50px 50px;
+      animation: move 40s linear infinite;
+      z-index: -1;
+    }
 
-        .overlay {
-            background-color: rgba(255, 255, 255, 0.85); /* Полупрозрачный белый фон для читабельности */
-            padding: 50px 30px;
-            border-radius: 20px;
-            max-width: 700px;
-            margin: 50px auto;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-            border: 3px solid #D2B48C; /* Кофейный оттенок для рамки */
-            position: relative; /* Чтобы overlay был поверх частиц */
-            z-index: 1; /* Убедимся, что overlay выше частиц */
-        }
-        .header-title {
-            font-family: 'Lobster', cursive;
-            font-size: 4em;
-            color: #800000;
-            margin-bottom: 25px;
-            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.15);
-        }
-        .subtitle {
-            font-family: 'Noto Sans KR', sans-serif;
-            font-size: 2em;
-            color: #2F4F4F;
-            margin-bottom: 40px;
-            font-weight: 400;
-        }
-        .content {
-            font-size: 1.2em;
-            color: #555;
-            margin-bottom: 30px;
-        }
-        .greeting-icon {
-            font-size: 5em;
-            color: #FFD700;
-            margin-top: 30px;
-        }
-        .details {
-            margin-top: 30px;
-            font-size: 1.1em;
-            color: #36454F;
-        }
-        .details strong {
-            color: #8B0000;
-        }
+    @keyframes move {
+      0% { transform: translate(0, 0); }
+      100% { transform: translate(-25%, -25%); }
+    }
 
-        @media (max-width: 600px) {
-            .overlay {
-                margin: 20px auto;
-                padding: 20px;
-            }
-            .header-title {
-                font-size: 3em;
-            }
-            .subtitle {
-                font-size: 1.6em;
-            }
-        }
-    </style>
+    .container {
+      padding: 40px 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    h1 {
+      font-family: 'Great Vibes', cursive;
+      font-size: 48px;
+      color: #fff4ec;
+      margin-bottom: 20px;
+    }
+
+    .invitation-text {
+      font-size: 24px;
+      margin-top: 10px;
+      padding: 20px;
+      background-color: rgba(255, 255, 255, 0.15);
+      border: 2px solid white;
+      display: inline-block;
+      border-radius: 15px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+
+    .details {
+      margin-top: 30px;
+      font-size: 18px;
+      line-height: 1.6;
+      color: #fff;
+    }
+
+    .button {
+      display: inline-block;
+      margin-top: 30px;
+      background-color: #ffffff;
+      color: #a0522d;
+      padding: 12px 24px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-size: 18px;
+      font-weight: bold;
+      transition: background 0.3s ease;
+    }
+
+    .button:hover {
+      background-color: #ffe2c6;
+    }
+
+    .flower {
+      width: 90px;
+      animation: pulse 3s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.1); opacity: 0.85; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    .music-control {
+      margin-top: 20px;
+      color: #fff;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
-    <div class="overlay">
-        <h1 class="header-title">Фарида зейнетке шығу</h1>
-        <p class="subtitle">Зейнетке шығу кешімнің Құрметті қонағы болыңыздар</p>
-
-        <div class="content">
-            <p>Құрметті аяулы Фариданың достары, әріптестері мен отбасы!</p>
-            <p>Біз Сіздерді Фариданың еңбек жолының маңызды кезеңі – зейнеткерлікке шығуын бірге атап өтуге шақырамыз.</p>
-            <p>Бұл кеш оның көп жылдық адал еңбегіне, кәсіби шеберлігіне және адамгершілік қасиеттеріне көрсетілетін құрмет белгісі болады.</p>
-            <p>Бізбен бірге болып, Фариданың қуанышын бөлісіңіздер!</p>
-        </div>
-        <div class="details">
-            <p><strong>Кештің өтетін орны:</strong> [Место проведения, например, "Нұр-Астана мейрамханасы"]</p>
-            <p><strong>Күні:</strong> <strong>[Дата, например, "2025 жылғы 10 маусым"]</strong></p>
-            <p><strong>Басталуы:</strong> <strong>[Время, например, "Сағат 18:00"]</strong></p>
-        </div>
-        <div class="greeting-icon">🥂</div>
+  <div class="background"></div>
+  <div class="container">
+    <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" alt="flower" class="flower">
+    <h1>Фарида зейнетке шығу</h1>
+    <div class="invitation-text">
+      Зейнетке шығу кешімнің <br><strong>Құрметті қонағы болыңыздар!</strong>
     </div>
 
-    <script>
-        function createParticle() {
-            const particle = document.createElement('div');
-            particle.classList.add('particle');
-            document.body.appendChild(particle);
+    <div class="details">
+      📅 <strong>Күні:</strong> 2025 жылғы 5 маусым<br>
+      🕕 <strong>Уақыты:</strong> 18:30<br>
+      📍 <strong>Мекенжайы:</strong> «Ақ Арман» мейрамханасы, Алматы қаласы
+    </div>
 
-            const size = Math.random() * 8 + 4; // Размер от 4 до 12px
-            particle.style.width = `${size}px`;
-            particle.style.height = `${size}px`;
-            particle.style.left = `${Math.random() * 100}vw`; // Случайное положение по горизонтали
-            particle.style.animationDuration = `${Math.random() * 5 + 5}s`; // Длительность анимации от 5 до 10 сек
-            particle.style.animationDelay = `-${Math.random() * 5}s`; // Задержка для случайного старта
-            particle.style.backgroundColor = `hsl(${Math.random() * 360}, 70%, 80%)`; // Случайный цвет
+    <a class="button" href="https://wa.me/77001234567?text=Сәлеметсіз бе! Зейнетке шығу кешіне қатысу туралы хабарласып тұрмын." target="_blank">
+      Жауап беру (WhatsApp)
+    </a>
 
-            // Удаляем частицу после завершения анимации
-            particle.addEventListener('animationend', () => {
-                particle.remove();
-            });
-        }
+    <div class="music-control" onclick="toggleMusic()">🔊 Музыканы тоқтату / қосу</div>
 
-        // Создаем частицы с интервалом
-        setInterval(createParticle, 200); // Каждые 200мс появляется новая частица
-    </script>
+    <audio id="bg-music" autoplay loop>
+      <source src="https://cdn.pixabay.com/audio/2023/02/24/audio_cfd87fd0e7.mp3" type="audio/mpeg">
+      Сіздің браузеріңіз аудио ойнатуды қолдамайды.
+    </audio>
+  </div>
+
+  <script>
+    const music = document.getElementById('bg-music');
+    function toggleMusic() {
+      if (music.paused) {
+        music.play();
+      } else {
+        music.pause();
+      }
+    }
+  </script>
 </body>
 </html>
