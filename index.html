@@ -6,20 +6,29 @@
     <title>Фарида зейнетке шығу кеші</title>
     <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Noto+Sans+KR:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
-        /* Базовые стили для body */
+        /* Базовые стили для body - без overflow: hidden */
         body {
             font-family: 'Noto Sans KR', sans-serif;
             margin: 0;
             padding: 0;
-            background: linear-gradient(135deg, #FFD700, #FFA500); /* Яркий золотисто-оранжевый градиент */
-            background-size: 200% 200%;
-            animation: gradientAnimation 15s ease infinite alternate; /* Анимация градиента */
             color: #4B0082; /* Индиго */
             line-height: 1.8;
             text-align: center;
-            overflow: hidden; /* Скрываем полосы прокрутки для частиц */
-            position: relative; /* Для позиционирования частиц */
             min-height: 100vh; /* Минимальная высота на весь экран */
+            position: relative;
+        }
+
+        /* Контейнер для фиксированного анимированного фона */
+        .animated-background {
+            position: fixed; /* Фиксирует фон на месте */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #FFD700, #FFA500); /* Яркий золотисто-оранжевый градиент */
+            background-size: 200% 200%;
+            animation: gradientAnimation 15s ease infinite alternate; /* Анимация градиента */
+            z-index: -1; /* Отправляем фон на задний план */
         }
 
         /* Анимация градиента */
@@ -30,7 +39,7 @@
 
         /* Стили для анимированных блесток */
         .glitter-particle {
-            position: absolute;
+            position: absolute; /* Абсолютное позиционирование внутри .animated-background */
             background-color: #ffffff; /* Белые блестки, можно добавить цвета */
             border-radius: 50%; /* Круглые блестки */
             box-shadow: 0 0 5px rgba(255, 255, 255, 0.7); /* Легкое свечение */
@@ -61,12 +70,12 @@
             padding: 50px 30px;
             border-radius: 20px;
             max-width: 700px;
-            margin: 50px auto;
+            margin: 50px auto; /* Обеспечивает центрирование и отступы */
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25); /* Более выраженная тень */
             border: 3px solid #D2B48C;
             position: relative;
             z-index: 1; /* Поверх блесток */
-            overflow: hidden; /* Чтобы блестки не вылезали за края overlay, если они будут внутри */
+            /* Убран overflow: hidden; отсюда, чтобы overlay мог прокручиваться */
         }
 
         /* Фото Фариды */
@@ -201,7 +210,7 @@
     </style>
 </head>
 <body>
-    <div class="glitter-container"></div>
+    <div class="animated-background"></div>
 
     <div class="overlay">
         <div class="farida-photo-container">
@@ -239,7 +248,9 @@
         function createGlitterParticle() {
             const particle = document.createElement('div');
             particle.classList.add('glitter-particle');
-            document.body.appendChild(particle);
+            
+            // Добавляем частицы в animated-background, а не body
+            document.querySelector('.animated-background').appendChild(particle);
 
             const size = Math.random() * 5 + 3; // Размер от 3 до 8px
             particle.style.width = `${size}px`;
