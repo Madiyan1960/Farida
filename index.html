@@ -25,7 +25,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, #FFFACD, #FAFAD2); /* Очень светлый золотисто-кремовый градиент */
+            background: linear-gradient(135deg, #FDF5E6, #FFFFF0); /* Очень светлый кремовый градиент */
             background-size: 200% 200%;
             animation: gradientAnimation 15s ease infinite alternate; /* Анимация градиента */
             z-index: -2; /* Самый нижний слой */
@@ -66,7 +66,7 @@
 
         /* Основной контейнер с контентом */
         .overlay {
-            background-color: rgba(255, 255, 255, 0.2); /* Уменьшена непрозрачность до 70% */
+            background-color: rgba(255, 255, 255, 0.7); /* Уменьшена непрозрачность до 70% */
             padding: 50px 30px;
             border-radius: 20px;
             max-width: 700px;
@@ -75,7 +75,6 @@
             border: 3px solid #D2B48C;
             position: relative; /* Для правильного z-index */
             z-index: 1; /* Самый верхний слой, над блестками и фоном */
-            /* Убран overflow: hidden; отсюда, чтобы overlay мог прокручиваться */
         }
 
         /* Фото Фариды */
@@ -84,7 +83,8 @@
             height: 150px;
             border-radius: 50%; /* Круглая рамка */
             overflow: hidden;
-            margin: -5px auto 30px; /* Поднимаем фото выше, чтобы оно немного выходило за верхний край */
+            /* ИЗМЕНЕНИЕ ЗДЕСЬ: опускаем фото ниже */
+            margin: 20px auto 30px; /* Пример: фото полностью внутри overlay, отступ сверху 20px */
             border: 5px solid #FFD700; /* Золотая рамка */
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
             position: relative; /* Для позиционирования внутри overlay */
@@ -200,7 +200,7 @@
             .farida-photo-container {
                 width: 100px;
                 height: 100px;
-                margin: -70px auto 20px;
+                margin: 10px auto 20px; /* Адаптивный отступ для маленьких экранов */
             }
             .whatsapp-icon {
                 width: 25px;
