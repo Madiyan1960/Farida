@@ -86,24 +86,24 @@
             margin-bottom: 50px; /* Отступ снизу */
         }
 
-        /* Контейнер для видео Фариды */
-        .farida-video-container {
-            width: 250px; /* Увеличьте размер, чтобы видео было заметнее */
-            height: 150px; /* Примерная высота, подберите под пропорции видео */
-            margin: 20px auto 30px;
+        /* Фото Фариды */
+        .farida-photo-container {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%; /* Круглая рамка */
+            overflow: hidden;
+            margin: 20px auto 30px; /* Фото полностью внутри overlay, отступ сверху 20px */
             border: 5px solid #FFD700; /* Золотая рамка */
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            position: relative;
-            z-index: 2;
-            background-color: #fff;
-            overflow: hidden; /* Обрезает, если видео выходит за рамки */
-            border-radius: 10px; /* Можно сделать прямоугольным или с закругленными углами */
+            position: relative; /* Для позиционирования внутри overlay */
+            z-index: 2; /* Над overlay */
+            background-color: #fff; /* Фон на случай, если фото не загрузится */
         }
 
-        .farida-video {
+        .farida-photo {
             width: 100%;
             height: 100%;
-            object-fit: cover; /* Важно: заполняет контейнер, обрезая лишнее, сохраняя пропорции */
+            object-fit: cover; /* Обрезает фото, чтобы оно вписывалось в круг */
             display: block;
         }
 
@@ -207,10 +207,10 @@
                 font-size: 1em;
                 padding: 12px 20px;
             }
-            .farida-video-container { /* Адаптивный размер для видео */
-                width: 90%;
-                height: 120px;
-                margin: 10px auto 20px;
+            .farida-photo-container {
+                width: 100px;
+                height: 100px;
+                margin: 10px auto 20px; /* Адаптивный отступ для маленьких экранов */
             }
             .whatsapp-icon {
                 width: 25px;
@@ -223,11 +223,8 @@
     <div class="animated-background"></div>
 
     <div class="overlay">
-        <div class="farida-video-container">
-            <video controls autoplay loop muted class="farida-video">
-                <source src="Untitled video.mp4" type="video/mp4">
-                Ваш браузер не поддерживает видео.
-            </video>
+        <div class="farida-photo-container">
+            <img src="farida_photo.png" alt="Фарида" class="farida-photo">
         </div>
 
         <h1 class="header-title">Фарида зейнетке шығу</h1>
@@ -260,7 +257,7 @@
 
     <audio id="background-music" loop>
         <source src="sedative-110241.mp3" type="audio/mpeg">
-        Ваш браузер не поддерживает аудио элемент.
+       Ваш браузер не поддерживает аудио элемент.
     </audio>
 
     <script>
