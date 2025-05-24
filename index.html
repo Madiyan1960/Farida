@@ -4,59 +4,168 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Фарида зейнетке шығу кеші</title>
-    <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Noto+Sans+KR:wght@300;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Noto+Sans+KR:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
+        /* Базовые стили для body */
         body {
-            font-family: 'Noto Sans KR', sans-serif; /* Можно использовать другой шрифт, похожий на Open Sans, если Noto Sans KR не подходит по стилю */
+            font-family: 'Noto Sans KR', sans-serif;
             margin: 0;
             padding: 0;
-            background: url('https://i.imgur.com/your-ornament-background.png') repeat center center; /* Замените на реальное изображение орнамента, если есть */
-            background-size: cover;
-            background-color: #FDF5E6; /* Кремовый фон */
+            background: linear-gradient(135deg, #FFD700, #FFA500); /* Яркий золотисто-оранжевый градиент */
+            background-size: 200% 200%;
+            animation: gradientAnimation 15s ease infinite alternate; /* Анимация градиента */
             color: #4B0082; /* Индиго */
             line-height: 1.8;
             text-align: center;
+            overflow: hidden; /* Скрываем полосы прокрутки для частиц */
+            position: relative; /* Для позиционирования частиц */
+            min-height: 100vh; /* Минимальная высота на весь экран */
         }
+
+        /* Анимация градиента */
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+
+        /* Стили для анимированных блесток */
+        .glitter-particle {
+            position: absolute;
+            background-color: #ffffff; /* Белые блестки, можно добавить цвета */
+            border-radius: 50%; /* Круглые блестки */
+            box-shadow: 0 0 5px rgba(255, 255, 255, 0.7); /* Легкое свечение */
+            opacity: 0;
+            animation: fallAndFade 5s linear infinite; /* Анимация падения и затухания */
+            pointer-events: none; /* Чтобы не мешали кликам */
+            z-index: 0; /* Под контентом */
+        }
+
+        @keyframes fallAndFade {
+            0% {
+                transform: translateY(-20px) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.8;
+                transform: translateY(0px) rotate(30deg);
+            }
+            100% {
+                transform: translateY(calc(100vh + 20px)) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Основной контейнер с контентом */
         .overlay {
-            background-color: rgba(255, 255, 255, 0.85); /* Полупрозрачный белый фон для читабельности */
+            background-color: rgba(255, 255, 255, 0.9); /* Полупрозрачный белый фон */
             padding: 50px 30px;
             border-radius: 20px;
             max-width: 700px;
             margin: 50px auto;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-            border: 3px solid #D2B48C; /* Кофейный оттенок для рамки */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25); /* Более выраженная тень */
+            border: 3px solid #D2B48C;
+            position: relative;
+            z-index: 1; /* Поверх блесток */
+            overflow: hidden; /* Чтобы блестки не вылезали за края overlay, если они будут внутри */
         }
+
+        /* Фото Фариды */
+        .farida-photo-container {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%; /* Круглая рамка */
+            overflow: hidden;
+            margin: -100px auto 30px; /* Поднимаем фото выше, чтобы оно немного выходило за верхний край */
+            border: 5px solid #FFD700; /* Золотая рамка */
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            position: relative; /* Для позиционирования внутри overlay */
+            z-index: 2; /* Над overlay */
+            background-color: #fff; /* Фон на случай, если фото не загрузится */
+        }
+
+        .farida-photo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Обрезает фото, чтобы оно вписывалось в круг */
+            display: block;
+        }
+
+        /* Заголовок */
         .header-title {
-            font-family: 'Lobster', cursive; /* Красивый рукописный шрифт */
-            font-size: 4em;
-            color: #800000; /* Темно-красный */
+            font-family: 'Lobster', cursive;
+            font-size: 4.5em; /* Крупнее */
+            color: #A52A2A; /* Более насыщенный бордовый */
             margin-bottom: 25px;
-            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.15);
+            text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.2); /* Более выраженная тень */
+            line-height: 1.1;
         }
+
+        /* Подзаголовок */
         .subtitle {
             font-family: 'Noto Sans KR', sans-serif;
-            font-size: 2em;
-            color: #2F4F4F; /* Темно-серый */
+            font-size: 2.2em; /* Крупнее */
+            color: #2F4F4F;
             margin-bottom: 40px;
-            font-weight: 400;
+            font-weight: 700; /* Более жирный */
         }
+
+        /* Основной текст */
         .content {
-            font-size: 1.2em;
-            color: #555;
+            font-size: 1.3em; /* Крупнее */
+            color: #333; /* Более темный текст для контраста */
             margin-bottom: 30px;
+            line-height: 1.7;
         }
-        .greeting-icon {
-            font-size: 5em;
-            color: #FFD700; /* Золото */
-            margin-top: 30px;
-        }
+
+        /* Детали мероприятия */
         .details {
             margin-top: 30px;
-            font-size: 1.1em;
-            color: #36454F; /* Угольно-серый */
+            font-size: 1.2em;
+            color: #36454F;
         }
         .details strong {
-            color: #8B0000; /* Темно-красный для важных деталей */
+            color: #8B0000;
+        }
+
+        /* Иконка-украшение */
+        .greeting-icon {
+            font-size: 5.5em; /* Крупнее */
+            color: #FFD700;
+            margin-top: 30px;
+            animation: bounce 2s infinite ease-in-out; /* Анимация "прыжка" */
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        /* Кнопка WhatsApp */
+        .whatsapp-button {
+            display: inline-flex; /* Чтобы иконка и текст были на одной линии */
+            align-items: center;
+            background-color: #25D366; /* Зеленый цвет WhatsApp */
+            color: white;
+            padding: 15px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-top: 40px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .whatsapp-button:hover {
+            background-color: #1DA851;
+            transform: translateY(-3px); /* Эффект при наведении */
+        }
+
+        .whatsapp-icon {
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
+            vertical-align: middle;
         }
 
         /* Адаптивность для мобильных устройств */
@@ -64,18 +173,41 @@
             .overlay {
                 margin: 20px auto;
                 padding: 20px;
+                border-radius: 10px;
             }
             .header-title {
                 font-size: 3em;
             }
             .subtitle {
-                font-size: 1.6em;
+                font-size: 1.5em;
+            }
+            .content {
+                font-size: 1em;
+            }
+            .details, .whatsapp-button {
+                font-size: 1em;
+                padding: 12px 20px;
+            }
+            .farida-photo-container {
+                width: 100px;
+                height: 100px;
+                margin: -70px auto 20px;
+            }
+            .whatsapp-icon {
+                width: 25px;
+                height: 25px;
             }
         }
     </style>
 </head>
 <body>
+    <div class="glitter-container"></div>
+
     <div class="overlay">
+        <div class="farida-photo-container">
+            <img src="https://via.placeholder.com/150/FFD700/FFFFFF?text=Farida" alt="Фарида" class="farida-photo">
+        </div>
+
         <h1 class="header-title">Фарида зейнетке шығу</h1>
         <p class="subtitle">Зейнетке шығу кешімнің Құрметті қонағы болыңыздар</p>
 
@@ -90,6 +222,54 @@
             <p><strong>Күні:</strong> <strong>[Дата, например, "2025 жылғы 10 маусым"]</strong></p>
             <p><strong>Басталуы:</strong> <strong>[Время, например, "Сағат 18:00"]</strong></p>
         </div>
-        <div class="greeting-icon">🥂</div> </div>
+        <div class="greeting-icon">✨</div> <a href="https://wa.me/77001234567?text=Сәлем!%20Мен%20Фариданың%20зейнетке%20шығу%20кешіне%20келуімді%20растағым%20келеді." target="_blank" class="whatsapp-button">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Icon" class="whatsapp-icon">
+            Қатысуды растау
+        </a>
+    </div>
+
+    <audio id="background-music" loop autoplay>
+        <source src="your-music-file.mp3" type="audio/mpeg">
+        <source src="your-music-file.ogg" type="audio/ogg">
+        Ваш браузер не поддерживает аудио элемент.
+    </audio>
+
+    <script>
+        // JavaScript для создания анимированных блесток
+        function createGlitterParticle() {
+            const particle = document.createElement('div');
+            particle.classList.add('glitter-particle');
+            document.body.appendChild(particle);
+
+            const size = Math.random() * 5 + 3; // Размер от 3 до 8px
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+            particle.style.left = `${Math.random() * 100}vw`; // Случайное положение по горизонтали
+            particle.style.animationDuration = `${Math.random() * 4 + 4}s`; // Длительность анимации от 4 до 8 сек
+            particle.style.animationDelay = `-${Math.random() * 4}s`; // Случайная задержка для асинхронного старта
+            
+            // Случайные цвета блесток
+            const colors = ['#FFD700', '#FFC0CB', '#ADD8E6', '#FFFFFF']; // Золотой, розовый, голубой, белый
+            particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+
+            // Удаляем частицу после завершения анимации, чтобы не перегружать DOM
+            particle.addEventListener('animationend', () => {
+                particle.remove();
+            });
+        }
+
+        // Создаем новые блестки с интервалом
+        setInterval(createGlitterParticle, 100); // Каждые 100мс появляется новая блестка
+
+        // Автозапуск музыки (может быть заблокирован браузерами без взаимодействия пользователя)
+        window.addEventListener('load', () => {
+            const music = document.getElementById('background-music');
+            music.volume = 0.3; // Уменьшим громкость, чтобы не было слишком громко
+            music.play().catch(error => {
+                console.log("Музыка не смогла запуститься автоматически. Возможно, требуется взаимодействие пользователя.");
+                // Можно добавить кнопку для запуска музыки, если автозапуск не работает
+            });
+        });
+    </script>
 </body>
 </html>
