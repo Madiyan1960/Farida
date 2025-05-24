@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Фарида зейнетке шығу кеші</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Noto+Sans+KR:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
         /* Базовые стили для body */
@@ -16,6 +17,11 @@
             text-align: center;
             min-height: 100vh; /* Минимальная высота на весь экран */
             position: relative;
+            /* Чтобы контент не был скрыт под фиксированным фоном */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
 
         /* Контейнер для фиксированного анимированного фона и блесток */
@@ -25,7 +31,8 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, #FDF5E6, #FFFFF0); /* Очень светлый кремовый градиент */
+            /* Очень светлый кремовый градиент */
+            background: linear-gradient(135deg, #FDF5E6, #FFFFF0);
             background-size: 200% 200%;
             animation: gradientAnimation 15s ease infinite alternate; /* Анимация градиента */
             z-index: -2; /* Самый нижний слой */
@@ -70,11 +77,13 @@
             padding: 50px 30px;
             border-radius: 20px;
             max-width: 700px;
-            margin: 50px auto; /* Обеспечивает центрирование и отступы */
+            /* margin: 50px auto;  Убрано, так как flexbox в body центрирует */
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25); /* Более выраженная тень */
             border: 3px solid #D2B48C;
             position: relative; /* Для правильного z-index */
             z-index: 1; /* Самый верхний слой, над блестками и фоном */
+            margin-top: 50px; /* Отступ сверху для центрирования */
+            margin-bottom: 50px; /* Отступ снизу */
         }
 
         /* Фото Фариды */
@@ -83,8 +92,7 @@
             height: 150px;
             border-radius: 50%; /* Круглая рамка */
             overflow: hidden;
-            /* ИЗМЕНЕНИЕ ЗДЕСЬ: опускаем фото ниже */
-            margin: 20px auto 30px; /* Пример: фото полностью внутри overlay, отступ сверху 20px */
+            margin: 20px auto 30px; /* Фото полностью внутри overlay, отступ сверху 20px */
             border: 5px solid #FFD700; /* Золотая рамка */
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
             position: relative; /* Для позиционирования внутри overlay */
@@ -163,6 +171,8 @@
             margin-top: 40px;
             transition: background-color 0.3s ease, transform 0.3s ease;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            cursor: pointer; /* Для кнопки */
+            border: none; /* Убрать стандартную границу кнопки */
         }
 
         .whatsapp-button:hover {
@@ -215,7 +225,7 @@
     <div class="overlay">
         <div class="farida-photo-container">
             <img src="farida_photo.png" alt="Фарида" class="farida-photo">
-           </div>
+        </div>
 
         <h1 class="header-title">Фарида зейнетке шығу</h1>
         <p class="subtitle">Зейнетке шығу кешімнің Құрметті қонағы болыңыздар</p>
@@ -231,56 +241,111 @@
             <p><strong>Күні:</strong> <strong>[Дата, например, "2025 жылғы 10 маусым"]</strong></p>
             <p><strong>Басталуы:</strong> <strong>[Время, например, "Сағат 18:00"]</strong></p>
         </div>
-        <div class="greeting-icon">✨</div> <a href="https://wa.me/77001234567?text=Сәлем!%20Мен%20Фариданың%20зейнетке%20шығу%20кешіне%20келуімді%20растағым%20келеді." target="_blank" class="whatsapp-button">
+        <div class="greeting-icon">✨</div>
+
+        <a href="https://wa.me/77001234567?text=Сәлем!%20Мен%20Фариданың%20зейнетке%20шығу%20кешіне%20келуімді%20растағым%20келеді." target="_blank" class="whatsapp-button">
             <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Icon" class="whatsapp-icon">
             Қатысуды растау
         </a>
+
+        <button id="toggle-music" class="whatsapp-button" style="margin-top: 20px;">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a2/Muted_Speaker_Icon.svg" alt="Muted Music Icon" class="whatsapp-icon">
+            Музыканы қосу / өшіру
+        </button>
+
     </div>
-<audio id="background-music" loop autoplay muted>
-    <source src="farida_celebration.mp3" type="audio/mpeg">
+
+    <audio id="background-music" loop>
+        <source src="farida_celebration.mp3" type="audio/mpeg">
+        <source src="farida_celebration.ogg" type="audio/ogg">
         Ваш браузер не поддерживает аудио элемент.
-</audio>
-    
+    </audio>
+
     <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const music = document.getElementById('background-music');
+            const toggleButton = document.getElementById('toggle-music');
+
+            let musicStarted = false; // Флаг для отслеживания, была ли музыка уже запущена
+
+            // Функция для запуска музыки после первого взаимодействия пользователя
+            function startMusicOnInteraction() {
+                if (!musicStarted) {
+                    music.volume = 0.3; // Установите желаемую громкость (от 0 до 1)
+                    music.play().then(() => {
+                        // Музыка успешно запущена
+                        musicStarted = true;
+                        music.muted = false; // Размьютить после успешного запуска
+                        if (toggleButton) {
+                            toggleButton.innerHTML = '<img src="https://upload.wikimedia.org/wikipedia/commons/e/e5/Speaker_Icon.svg" alt="Music Icon" class="whatsapp-icon"> Музыканы өшіру';
+                        }
+                    }).catch(error => {
+                        // Ошибка воспроизведения (например, блокировка браузером)
+                        console.warn("Ошибка воспроизведения музыки при первом взаимодействии. Возможно, браузер блокирует. " +
+                                     "Или файл поврежден/кодек не поддерживается.", error);
+                        // Оставляем кнопку в состоянии "Музыканы қосу", если не удалось запустить
+                        if (toggleButton) {
+                             toggleButton.innerHTML = '<img src="https://upload.wikimedia.org/wikipedia/commons/a/a2/Muted_Speaker_Icon.svg" alt="Muted Music Icon" class="whatsapp-icon"> Музыканы қосу';
+                        }
+                    });
+                }
+                // Удаляем слушатели после первого взаимодействия, чтобы не запускать функцию многократно
+                document.removeEventListener('click', startMusicOnInteraction);
+                document.removeEventListener('scroll', startMusicOnInteraction);
+                document.removeEventListener('touchstart', startMusicOnInteraction);
+            }
+
+            // Добавляем слушатели событий на весь документ, чтобы поймать первый клик/скролл/тач
+            // Это запустит музыку (и размьютит) после первого взаимодействия пользователя со страницей.
+            document.addEventListener('click', startMusicOnInteraction);
+            document.addEventListener('scroll', startMusicOnInteraction);
+            document.addEventListener('touchstart', startMusicOnInteraction); // Для мобильных устройств
+
+            // Обработчик для кнопки переключения музыки
+            if (toggleButton) {
+                toggleButton.addEventListener('click', () => {
+                    // Если музыка еще не была запущена (например, пользователь сразу нажал на кнопку)
+                    if (!musicStarted) {
+                        startMusicOnInteraction(); // Попытаться запустить музыку
+                    } else {
+                        // Если музыка уже запущена, переключаем ее состояние (пауза/воспроизведение)
+                        if (music.paused) {
+                            music.play();
+                            music.muted = false; // Убедиться, что не заглушено
+                            toggleButton.innerHTML = '<img src="https://upload.wikimedia.org/wikipedia/commons/e/e5/Speaker_Icon.svg" alt="Music Icon" class="whatsapp-icon"> Музыканы өшіру';
+                        } else {
+                            music.pause();
+                            toggleButton.innerHTML = '<img src="https://upload.wikimedia.org/wikipedia/commons/a/a2/Muted_Speaker_Icon.svg" alt="Muted Music Icon" class="whatsapp-icon"> Музыканы қосу';
+                        }
+                    }
+                });
+
+                // Инициализация текста кнопки при загрузке страницы, если музыка еще не играет
+                // Это нужно, если браузер не позволил autoplay muted, и кнопка должна быть "включить"
+                if (music.paused || music.muted) {
+                    toggleButton.innerHTML = '<img src="https://upload.wikimedia.org/wikipedia/commons/a/a2/Muted_Speaker_Icon.svg" alt="Muted Music Icon" class="whatsapp-icon"> Музыканы қосу';
+                }
+            }
+        });
+
         // JavaScript для создания анимированных блесток
         function createGlitterParticle() {
             const particle = document.createElement('div');
             particle.classList.add('glitter-particle');
-
-            // Добавляем частицы в animated-background
             document.querySelector('.animated-background').appendChild(particle);
-
-            const size = Math.random() * 8 + 4; // Размер от 4 до 12px (увеличен)
+            const size = Math.random() * 8 + 4;
             particle.style.width = `${size}px`;
             particle.style.height = `${size}px`;
-            particle.style.left = `${Math.random() * 100}vw`; // Случайное положение по горизонтали
-            particle.style.animationDuration = `${Math.random() * 6 + 6}s`; // Длительность анимации от 6 до 12 сек (увеличена)
-            particle.style.animationDelay = `-${Math.random() * 6}s`; // Случайная задержка для асинхронного старта
-
-            // Случайные цвета блесток (добавлены более контрастные)
-            const colors = ['#FFD700', '#FFC0CB', '#ADD8E6', '#FFFFFF', '#FF4500', '#9400D3', '#00FFFF']; // Золотой, розовый, голубой, белый, ярко-оранжевый, темно-фиолетовый, бирюзовый
+            particle.style.left = `${Math.random() * 100}vw`;
+            particle.style.animationDuration = `${Math.random() * 6 + 6}s`;
+            particle.style.animationDelay = `-${Math.random() * 6}s`;
+            const colors = ['#FFD700', '#FFC0CB', '#ADD8E6', '#FFFFFF', '#FF4500', '#9400D3', '#00FFFF'];
             particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-
-            // Удаляем частицу после завершения анимации, чтобы не перегружать DOM
             particle.addEventListener('animationend', () => {
                 particle.remove();
             });
         }
-
-        // Создаем новые блестки с интервалом
-        setInterval(createGlitterParticle, 50); // Каждые 50мс (увеличена частота)
-
-        // Автозапуск музыки (может быть заблокирован браузерами без взаимодействия пользователя)
-        window.addEventListener('load', () => {
-            const music = document.getElementById('background-music');
-            music.volume = 0.3; // Уменьшим громкость, чтобы не было слишком громко
-            music.play().catch(error => {
-                console.log("Музыка не смогла запуститься автоматически. Возможно, требуется взаимодействие пользователя.");
-                // Можно добавить кнопку для запуска музыки, если автозапуск не работает
-            });
-        });
+        setInterval(createGlitterParticle, 50);
     </script>
-        
-
-    </body>
+</body>
 </html>
