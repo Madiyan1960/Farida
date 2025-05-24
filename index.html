@@ -12,98 +12,105 @@
       font-family: 'Open Sans', sans-serif;
       color: #fff;
       text-align: center;
-      overflow-x: hidden;
+      background-color: #ffb6c1;
+      overflow: hidden;
     }
 
-    .background {
+    .glitter {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: linear-gradient(120deg, #ffecd2, #fcb69f);
-      z-index: -2;
-      overflow: hidden;
+      background: radial-gradient(ellipse at center, rgba(255,255,255,0.1) 0%, rgba(255,192,203,0.2) 100%);
+      pointer-events: none;
+      z-index: -1;
     }
 
-    .background::before {
+    .glitter::before, .glitter::after {
       content: '';
       position: absolute;
       width: 200%;
       height: 200%;
-      background-image: radial-gradient(circle, rgba(255,255,255,0.3) 1px, transparent 1px);
-      background-size: 50px 50px;
-      animation: move 40s linear infinite;
-      z-index: -1;
+      background-image: radial-gradient(#fff 1px, transparent 1px);
+      background-size: 20px 20px;
+      animation: sparkle 30s linear infinite;
     }
 
-    @keyframes move {
-      0% { transform: translate(0, 0); }
-      100% { transform: translate(-25%, -25%); }
+    .glitter::after {
+      animation-delay: 15s;
+      opacity: 0.5;
+    }
+
+    @keyframes sparkle {
+      0% { transform: translate(0,0); }
+      100% { transform: translate(-50%, -50%); }
     }
 
     .container {
       padding: 40px 20px;
-      position: relative;
       z-index: 1;
+      position: relative;
     }
 
     h1 {
       font-family: 'Great Vibes', cursive;
-      font-size: 48px;
-      color: #fff4ec;
+      font-size: 60px;
+      color: #fff8dc;
       margin: 20px 0;
+      text-shadow: 2px 2px 6px #ff69b4;
     }
 
     .invitation-text {
-      font-size: 24px;
+      font-size: 26px;
       margin-top: 10px;
       padding: 20px;
-      background-color: rgba(255, 255, 255, 0.15);
+      background-color: rgba(255, 255, 255, 0.2);
       border: 2px solid white;
       display: inline-block;
-      border-radius: 15px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      border-radius: 20px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+      color: #fff;
     }
 
     .details {
       margin-top: 30px;
-      font-size: 18px;
-      line-height: 1.6;
-      color: #fff;
+      font-size: 20px;
+      color: #fffef2;
     }
 
     .button {
       display: inline-block;
       margin-top: 30px;
-      background-color: #ffffff;
-      color: #a0522d;
-      padding: 12px 24px;
+      background: linear-gradient(to right, #fffacd, #ff69b4);
+      color: #8b0000;
+      padding: 14px 28px;
       border-radius: 30px;
       text-decoration: none;
-      font-size: 18px;
+      font-size: 20px;
       font-weight: bold;
-      transition: background 0.3s ease;
+      transition: transform 0.3s ease;
+      box-shadow: 0 0 15px rgba(255, 182, 193, 0.7);
     }
 
     .button:hover {
-      background-color: #ffe2c6;
+      transform: scale(1.05);
     }
 
     .photo {
-      width: 200px;
-      height: 200px;
+      width: 220px;
+      height: 220px;
       border-radius: 50%;
       object-fit: cover;
-      border: 4px solid white;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-      margin-bottom: 20px;
-      animation: pulse 5s infinite;
+      border: 6px solid #fff;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+      margin-bottom: 25px;
+      animation: pulse 4s infinite;
     }
 
     @keyframes pulse {
       0% { transform: scale(1); opacity: 1; }
-      50% { transform: scale(1.03); opacity: 0.95; }
+      50% { transform: scale(1.05); opacity: 0.95; }
       100% { transform: scale(1); opacity: 1; }
     }
 
@@ -121,12 +128,13 @@
   </style>
 </head>
 <body>
-  <div class="background"></div>
+  <div class="glitter"></div>
   <div class="container">
     <!-- 🖼 Фото Фариды -->
     <img src="photo.jpg" alt="Фарида" class="photo" />
-    
+
     <h1>Фарида зейнетке шығу</h1>
+
     <div class="invitation-text">
       Зейнетке шығу кешімнің <br><strong>Құрметті қонағы болыңыздар!</strong>
     </div>
