@@ -66,7 +66,7 @@
 
         /* Основной контейнер с контентом */
         .overlay {
-            background-color: rgba(255, 255, 255, 0.9); /* Полупрозрачный белый фон */
+            background-color: rgba(255, 255, 255, 0.7); /* Уменьшена непрозрачность до 70% */
             padding: 50px 30px;
             border-radius: 20px;
             max-width: 700px;
@@ -249,18 +249,18 @@
             const particle = document.createElement('div');
             particle.classList.add('glitter-particle');
 
-            // Добавляем частицы в animated-background, а не body
+            // Добавляем частицы в animated-background
             document.querySelector('.animated-background').appendChild(particle);
 
-            const size = Math.random() * 5 + 3; // Размер от 3 до 8px
+            const size = Math.random() * 8 + 4; // Размер от 4 до 12px (увеличен)
             particle.style.width = `${size}px`;
             particle.style.height = `${size}px`;
             particle.style.left = `${Math.random() * 100}vw`; // Случайное положение по горизонтали
-            particle.style.animationDuration = `${Math.random() * 4 + 4}s`; // Длительность анимации от 4 до 8 сек
-            particle.style.animationDelay = `-${Math.random() * 4}s`; // Случайная задержка для асинхронного старта
+            particle.style.animationDuration = `${Math.random() * 6 + 6}s`; // Длительность анимации от 6 до 12 сек (увеличена)
+            particle.style.animationDelay = `-${Math.random() * 6}s`; // Случайная задержка для асинхронного старта
 
-            // Случайные цвета блесток
-            const colors = ['#FFD700', '#FFC0CB', '#ADD8E6', '#FFFFFF']; // Золотой, розовый, голубой, белый
+            // Случайные цвета блесток (добавлены более контрастные)
+            const colors = ['#FFD700', '#FFC0CB', '#ADD8E6', '#FFFFFF', '#FF4500', '#9400D3', '#00FFFF']; // Золотой, розовый, голубой, белый, ярко-оранжевый, темно-фиолетовый, бирюзовый
             particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
 
             // Удаляем частицу после завершения анимации, чтобы не перегружать DOM
@@ -270,7 +270,7 @@
         }
 
         // Создаем новые блестки с интервалом
-        setInterval(createGlitterParticle, 100); // Каждые 100мс появляется новая блестка
+        setInterval(createGlitterParticle, 50); // Каждые 50мс (увеличена частота)
 
         // Автозапуск музыки (может быть заблокирован браузерами без взаимодействия пользователя)
         window.addEventListener('load', () => {
