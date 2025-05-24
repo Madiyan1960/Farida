@@ -12,7 +12,7 @@
       font-family: 'Open Sans', sans-serif;
       color: #fff;
       text-align: center;
-      background-color: #ffb6c1;
+      background: radial-gradient(ellipse at center, #1a1a2e, #0f0f1a);
       overflow: hidden;
     }
 
@@ -22,7 +22,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: radial-gradient(ellipse at center, rgba(255,255,255,0.1) 0%, rgba(255,192,203,0.2) 100%);
+      background: transparent;
       pointer-events: none;
       z-index: -1;
     }
@@ -35,11 +35,11 @@
       background-image: radial-gradient(#fff 1px, transparent 1px);
       background-size: 20px 20px;
       animation: sparkle 30s linear infinite;
+      opacity: 0.2;
     }
 
     .glitter::after {
       animation-delay: 15s;
-      opacity: 0.5;
     }
 
     @keyframes sparkle {
@@ -49,14 +49,14 @@
 
     .container {
       padding: 40px 20px;
-      z-index: 1;
       position: relative;
+      z-index: 1;
     }
 
     h1 {
       font-family: 'Great Vibes', cursive;
       font-size: 60px;
-      color: #fff8dc;
+      color: #ffb6c1;
       margin: 20px 0;
       text-shadow: 2px 2px 6px #ff69b4;
     }
@@ -65,32 +65,31 @@
       font-size: 26px;
       margin-top: 10px;
       padding: 20px;
-      background-color: rgba(255, 255, 255, 0.2);
-      border: 2px solid white;
+      background-color: rgba(255, 255, 255, 0.1);
+      border: 2px solid #fff;
       display: inline-block;
       border-radius: 20px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-      color: #fff;
+      box-shadow: 0 4px 20px rgba(255, 255, 255, 0.3);
     }
 
     .details {
       margin-top: 30px;
       font-size: 20px;
-      color: #fffef2;
+      color: #f5f5f5;
     }
 
     .button {
       display: inline-block;
       margin-top: 30px;
-      background: linear-gradient(to right, #fffacd, #ff69b4);
-      color: #8b0000;
+      background: linear-gradient(to right, #ffc0cb, #ff69b4);
+      color: #1a1a1a;
       padding: 14px 28px;
       border-radius: 30px;
       text-decoration: none;
       font-size: 20px;
       font-weight: bold;
       transition: transform 0.3s ease;
-      box-shadow: 0 0 15px rgba(255, 182, 193, 0.7);
+      box-shadow: 0 0 15px rgba(255, 182, 193, 0.8);
     }
 
     .button:hover {
@@ -103,7 +102,7 @@
       border-radius: 50%;
       object-fit: cover;
       border: 6px solid #fff;
-      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
       margin-bottom: 25px;
       animation: pulse 4s infinite;
     }
@@ -116,7 +115,7 @@
 
     .music-control {
       margin-top: 20px;
-      color: #fff;
+      color: #ccc;
       font-size: 16px;
       cursor: pointer;
     }
@@ -130,7 +129,6 @@
 <body>
   <div class="glitter"></div>
   <div class="container">
-    <!-- 🖼 Фото Фариды -->
     <img src="photo.jpg" alt="Фарида" class="photo" />
 
     <h1>Фарида зейнетке шығу</h1>
@@ -145,15 +143,13 @@
       📍 <strong>Мекенжайы:</strong> «Ақ Арман» мейрамханасы, Алматы қаласы
     </div>
 
-    <!-- 📲 WhatsApp жауап -->
     <a class="button" href="https://wa.me/77001234567?text=Сәлеметсіз бе! Зейнетке шығу кешіне қатысамын." target="_blank">
       Жауап беру (WhatsApp)
     </a>
 
-    <!-- 🎵 Музыка -->
     <div class="music-control" onclick="toggleMusic()">🔊 Музыканы қосу / тоқтату</div>
 
-    <audio id="bg-music" autoplay loop>
+    <audio id="bg-music" loop>
       <source src="https://cdn.pixabay.com/audio/2022/11/01/audio_55f80f28c4.mp3" type="audio/mpeg">
       Сіздің браузеріңіз аудио ойнатуды қолдамайды.
     </audio>
@@ -161,6 +157,14 @@
 
   <script>
     const music = document.getElementById('bg-music');
+
+    // Воспроизведение при первом клике
+    document.body.addEventListener('click', () => {
+      if (music.paused) {
+        music.play().catch(err => console.log('Қате:', err));
+      }
+    }, { once: true });
+
     function toggleMusic() {
       if (music.paused) {
         music.play();
