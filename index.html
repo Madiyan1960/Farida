@@ -1,350 +1,118 @@
 <!DOCTYPE html>
 <html lang="kk">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Фарида зейнетке шығу кеші</title>
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Noto+Sans+KR:wght@300;400;700&display=swap" rel="stylesheet">
-    <style>
-        /* Базовые стили для body */
-        body {
-            font-family: 'Noto Sans KR', sans-serif;
-            margin: 0;
-            padding: 0;
-            color: #4B0082; /* Индиго */
-            line-height: 1.8;
-            text-align: center;
-            min-height: 100vh; /* Минимальная высота на весь экран */
-            position: relative;
-            /* Чтобы контент не был скрыт под фиксированным фоном */
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-
-        /* Контейнер для фиксированного анимированного фона и блесток */
-        .animated-background {
-            position: fixed; /* Фиксирует фон на месте */
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            /* Очень светлый кремовый градиент */
-            background: linear-gradient(135deg, #FDF5E6, #FFFFF0);
-            background-size: 200% 200%;
-            animation: gradientAnimation 15s ease infinite alternate; /* Анимация градиента */
-            z-index: -2; /* Самый нижний слой */
-        }
-
-        /* Анимация градиента */
-        @keyframes gradientAnimation {
-            0% { background-position: 0% 50%; }
-            100% { background-position: 100% 50%; }
-        }
-
-        /* Стили для анимированных блесток */
-        .glitter-particle {
-            position: absolute; /* Абсолютное позиционирование внутри .animated-background */
-            background-color: #ffffff; /* Белые блестки, можно добавить цвета */
-            border-radius: 50%; /* Круглые блестки */
-            box-shadow: 0 0 5px rgba(255, 255, 255, 0.7); /* Легкое свечение */
-            opacity: 0;
-            animation: fallAndFade 5s linear infinite; /* Анимация падения и затухания */
-            pointer-events: none; /* Чтобы не мешали кликам */
-            z-index: -1; /* Поверх фона, но под основным контентом */
-        }
-
-        @keyframes fallAndFade {
-            0% {
-                transform: translateY(-20px) rotate(0deg);
-                opacity: 0;
-            }
-            10% {
-                opacity: 0.8;
-                transform: translateY(0px) rotate(30deg);
-            }
-            100% {
-                transform: translateY(calc(100vh + 20px)) rotate(360deg);
-                opacity: 0;
-            }
-        }
-
-        /* Основной контейнер с контентом */
-        .overlay {
-            background-color: rgba(255, 255, 255, 0.7); /* Уменьшена непрозрачность до 70% */
-            padding: 50px 30px;
-            border-radius: 20px;
-            max-width: 700px;
-            /* margin: 50px auto;  Убрано, так как flexbox в body центрирует */
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25); /* Более выраженная тень */
-            border: 3px solid #D2B48C;
-            position: relative; /* Для правильного z-index */
-            z-index: 1; /* Самый верхний слой, над блестками и фоном */
-            margin-top: 50px; /* Отступ сверху для центрирования */
-            margin-bottom: 50px; /* Отступ снизу */
-        }
-
-        /* Фото Фариды */
-        .farida-photo-container {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%; /* Круглая рамка */
-            overflow: hidden;
-            margin: 20px auto 30px; /* Фото полностью внутри overlay, отступ сверху 20px */
-            border: 5px solid #FFD700; /* Золотая рамка */
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            position: relative; /* Для позиционирования внутри overlay */
-            z-index: 2; /* Над overlay */
-            background-color: #fff; /* Фон на случай, если фото не загрузится */
-        }
-
-        .farida-photo {
-            width: 100%;
-            height: 100%;
-            object-fit: cover; /* Обрезает фото, чтобы оно вписывалось в круг */
-            display: block;
-        }
-
-        /* Заголовок */
-        .header-title {
-            font-family: 'Lobster', cursive;
-            font-size: 4.5em; /* Крупнее */
-            color: #A52A2A; /* Более насыщенный бордовый */
-            margin-bottom: 25px;
-            text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.2); /* Более выраженная тень */
-            line-height: 1.1;
-        }
-
-        /* Подзаголовок */
-        .subtitle {
-            font-family: 'Noto Sans KR', sans-serif;
-            font-size: 2.2em; /* Крупнее */
-            color: #2F4F4F;
-            margin-bottom: 40px;
-            font-weight: 700; /* Более жирный */
-        }
-
-        /* Основной текст */
-        .content {
-            font-size: 1.3em; /* Крупнее */
-            color: #333; /* Более темный текст для контраста */
-            margin-bottom: 30px;
-            line-height: 1.7;
-        }
-
-        /* Детали мероприятия */
-        .details {
-            margin-top: 30px;
-            font-size: 1.3em;
-            color: #36454F;
-        }
-        .details strong {
-            color: #2F4F4F;
-        }
-
-        /* Иконка-украшение */
-        .greeting-icon {
-            font-size: 5.5em; /* Крупнее */
-            color: #FFD700;
-            margin-top: 30px;
-            animation: bounce 2s infinite ease-in-out; /* Анимация "прыжка" */
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-15px); }
-        }
-
-        /* Кнопка WhatsApp */
-        .whatsapp-button {
-            display: inline-flex; /* Чтобы иконка и текст были на одной линии */
-            align-items: center;
-            background-color: #25D366; /* Зеленый цвет WhatsApp */
-            color: white;
-            padding: 15px 30px;
-            border-radius: 30px;
-            text-decoration: none;
-            font-size: 1.2em;
-            font-weight: bold;
-            margin-top: 40px;
-            transition: background-color 0.3s ease, transform 0.3s ease;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            cursor: pointer; /* Для кнопки */
-            border: none; /* Убрать стандартную границу кнопки */
-        }
-
-        .whatsapp-button:hover {
-            background-color: #1DA851;
-            transform: translateY(-3px); /* Эффект при наведении */
-        }
-
-        .whatsapp-icon {
-            width: 30px;
-            height: 30px;
-            margin-right: 10px;
-            vertical-align: middle;
-        }
-
-        /* Адаптивность для мобильных устройств */
-        @media (max-width: 600px) {
-            .overlay {
-                margin: 20px auto;
-                padding: 20px;
-                border-radius: 10px;
-            }
-            .header-title {
-                font-size: 3em;
-            }
-            .subtitle {
-                font-size: 1.5em;
-            }
-            .content {
-                font-size: 1em;
-            }
-            .details, .whatsapp-button {
-                font-size: 1em;
-                padding: 12px 20px;
-            }
-            .farida-photo-container {
-                width: 100px;
-                height: 100px;
-                margin: 10px auto 20px; /* Адаптивный отступ для маленьких экранов */
-            }
-            .whatsapp-icon {
-                width: 25px;
-                height: 25px;
-            }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <title>Фарида зейнетке шығу</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Open+Sans&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Open Sans', sans-serif;
+      color: white;
+      overflow: hidden;
+    }
+    .background-slideshow {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+      overflow: hidden;
+    }
+    .slide {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      opacity: 0;
+      transform: scale(1);
+      animation: fadeZoom 24s infinite;
+    }
+    .slide:nth-child(1) {
+      background-image: url('photo1.jpg');
+      animation-delay: 0s;
+    }
+    .slide:nth-child(2) {
+      background-image: url('photo2.jpg');
+      animation-delay: 8s;
+    }
+    .slide:nth-child(3) {
+      background-image: url('photo3.jpg');
+      animation-delay: 16s;
+    }
+    @keyframes fadeZoom {
+      0% {
+        opacity: 0;
+        transform: scale(1);
+      }
+      5% {
+        opacity: 1;
+      }
+      30% {
+        opacity: 1;
+        transform: scale(1.08);
+      }
+      40% {
+        opacity: 0;
+        transform: scale(1.1);
+      }
+      100% {
+        opacity: 0;
+        transform: scale(1);
+      }
+    }
+    .content {
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+      margin: 80px auto;
+      background: rgba(0, 0, 0, 0.5);
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 0 20px #000;
+      text-align: center;
+    }
+    h1 {
+      font-family: 'Great Vibes', cursive;
+      font-size: 48px;
+      margin-bottom: 10px;
+    }
+    h2 {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+    p {
+      font-size: 18px;
+      line-height: 1.6;
+    }
+  </style>
 </head>
 <body>
-    <div class="animated-background"></div>
+  <div class="background-slideshow">
+    <div class="slide"></div>
+    <div class="slide"></div>
+    <div class="slide"></div>
+  </div>
 
-    <div class="overlay">
-        <div class="farida-photo-container">
-            <img src="farida_photo.png" alt="Фарида" class="farida-photo">
-        </div>
+  <div class="content">
+    <h1>Фарида зейнетке шығу</h1>
+    <h2>Зейнетке шығу кешімнің Құрметті қонағы болыңыздар</h2>
+    <p>Құрметті достар, әріптестер және жақындарымыз!</p>
+    <p>Біздің сүйікті Фаридамыздың зейнеткерлікке шығуын атап өту үшін Сіздерді ерекше кешке шақырамыз.</p>
+    <p>Бұл кеш Фариданың ұзақ жылдар бойғы еңбегіне, адалдығына және бізге берген жылуына деген алғысымызды білдіруге арналады.</p>
+    <p>Кешіміз жақсы әңгімелерге, жылы естеліктерге және шын жүректен шыққан тілектерге толы болады деп үміттенеміз.</p>
+    <p>Сіздерді күтеміз!</p>
+  </div>
 
-        <h1 class="header-title">Фарида зейнетке шығу</h1>
-        <p class="subtitle">Зейнетке шығу кешімнің Құрметті қонағы болыңыздар</p>
-
-        <div class="content">
-            <p><i>Құрметті аяулы Фариданың достары, әріптестері мен отбасы!</i></p>
-            <p><i>Біз Сіздерді Фариданың еңбек жолының маңызды кезеңі – зейнеткерлікке шығуын бірге атап өтуге шақырамыз.</i></p>
-            <p><i>Бұл кеш оның көп жылдық адал еңбегіне, кәсіби шеберлігіне және адамгершілік қасиеттеріне көрсетілетін құрмет белгісі болады.</i></p>
-            <p><i>Бізбен бірге болып, Фариданың қуанышын бөлісіңіздер!</i></p>
-        </div>
-        <div class="details">
-            <p><strong>Кештің өтетін орны:</strong> <strong> Тайынша қаласы "Жанар мейрамханасы"</strong></p>
-            <p><strong>Күні:</strong> <strong>2025 жылғы 30 тамыз</strong></p>
-            <p><strong>Басталуы:</strong> <strong>Сағат 18:00</strong></p>
-        </div>
-        <div class="greeting-icon">✨</div>
-
-        <a href="https://wa.me/77757544371?text=Сәлем!%20Мен%20Фариданың%20зейнетке%20шығу%20кешіне%20келуімді%20растағым%20келеді." target="_blank" class="whatsapp-button">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Icon" class="whatsapp-icon">
-            Қатысуды растау
-        </a>
-
-        <button id="toggle-music" class="whatsapp-button" style="margin-top: 20px;">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a2/Muted_Speaker_Icon.svg" alt="Muted Music Icon" class="whatsapp-icon">
-            Музыканы қосу / өшіру
-        </button>
-
-    </div>
-
-    <audio id="background-music" loop>
-        <source src="sedative-110241.mp3" type="audio/mpeg">
-       Ваш браузер не поддерживает аудио элемент.
-    </audio>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const music = document.getElementById('background-music');
-            const toggleButton = document.getElementById('toggle-music');
-
-            let musicStarted = false; // Флаг для отслеживания, была ли музыка уже запущена
-
-            // Функция для запуска музыки после первого взаимодействия пользователя
-            function startMusicOnInteraction() {
-                if (!musicStarted) {
-                    music.volume = 0.3; // Установите желаемую громкость (от 0 до 1)
-                    music.play().then(() => {
-                        // Музыка успешно запущена
-                        musicStarted = true;
-                        music.muted = false; // Размьютить после успешного запуска
-                        if (toggleButton) {
-                            toggleButton.innerHTML = '<img src="https://upload.wikimedia.org/wikipedia/commons/e/e5/Speaker_Icon.svg" alt="Music Icon" class="whatsapp-icon"> Музыканы өшіру';
-                        }
-                    }).catch(error => {
-                        // Ошибка воспроизведения (например, блокировка браузером)
-                        console.warn("Ошибка воспроизведения музыки при первом взаимодействии. Возможно, браузер блокирует. " +
-                                     "Или файл поврежден/кодек не поддерживается.", error);
-                        // Оставляем кнопку в состоянии "Музыканы қосу", если не удалось запустить
-                        if (toggleButton) {
-                             toggleButton.innerHTML = '<img src="https://upload.wikimedia.org/wikipedia/commons/a/a2/Muted_Speaker_Icon.svg" alt="Muted Music Icon" class="whatsapp-icon"> Музыканы қосу';
-                        }
-                    });
-                }
-                // Удаляем слушатели после первого взаимодействия, чтобы не запускать функцию многократно
-                document.removeEventListener('click', startMusicOnInteraction);
-                document.removeEventListener('scroll', startMusicOnInteraction);
-                document.removeEventListener('touchstart', startMusicOnInteraction);
-            }
-
-            // Добавляем слушатели событий на весь документ, чтобы поймать первый клик/скролл/тач
-            // Это запустит музыку (и размьютит) после первого взаимодействия пользователя со страницей.
-            document.addEventListener('click', startMusicOnInteraction);
-            document.addEventListener('scroll', startMusicOnInteraction);
-            document.addEventListener('touchstart', startMusicOnInteraction); // Для мобильных устройств
-
-            // Обработчик для кнопки переключения музыки
-            if (toggleButton) {
-                toggleButton.addEventListener('click', () => {
-                    // Если музыка еще не была запущена (например, пользователь сразу нажал на кнопку)
-                    if (!musicStarted) {
-                        startMusicOnInteraction(); // Попытаться запустить музыку
-                    } else {
-                        // Если музыка уже запущена, переключаем ее состояние (пауза/воспроизведение)
-                        if (music.paused) {
-                            music.play();
-                            music.muted = false; // Убедиться, что не заглушено
-                            toggleButton.innerHTML = '<img src="https://upload.wikimedia.org/wikipedia/commons/e/e5/Speaker_Icon.svg" alt="Music Icon" class="whatsapp-icon"> Музыканы өшіру';
-                        } else {
-                            music.pause();
-                            toggleButton.innerHTML = '<img src="https://upload.wikimedia.org/wikipedia/commons/a/a2/Muted_Speaker_Icon.svg" alt="Muted Music Icon" class="whatsapp-icon"> Музыканы қосу';
-                        }
-                    }
-                });
-
-                // Инициализация текста кнопки при загрузке страницы, если музыка еще не играет
-                // Это нужно, если браузер не позволил autoplay muted, и кнопка должна быть "включить"
-                if (music.paused || music.muted) {
-                    toggleButton.innerHTML = '<img src="https://upload.wikimedia.org/wikipedia/commons/a/a2/Muted_Speaker_Icon.svg" alt="Muted Music Icon" class="whatsapp-icon"> Музыканы қосу';
-                }
-            }
-        });
-
-        // JavaScript для создания анимированных блесток
-        function createGlitterParticle() {
-            const particle = document.createElement('div');
-            particle.classList.add('glitter-particle');
-            document.querySelector('.animated-background').appendChild(particle);
-            const size = Math.random() * 8 + 4;
-            particle.style.width = `${size}px`;
-            particle.style.height = `${size}px`;
-            particle.style.left = `${Math.random() * 100}vw`;
-            particle.style.animationDuration = `${Math.random() * 6 + 6}s`;
-            particle.style.animationDelay = `-${Math.random() * 6}s`;
-            const colors = ['#FFD700', '#FFC0CB', '#ADD8E6', '#FFFFFF', '#FF4500', '#9400D3', '#00FFFF'];
-            particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-            particle.addEventListener('animationend', () => {
-                particle.remove();
-            });
-        }
-        setInterval(createGlitterParticle, 50);
-    </script>
+  <audio autoplay loop>
+    <source src="music.mp3" type="audio/mpeg">
+    Сіздің браузер аудио ойнатуды қолдамайды.
+  </audio>
 </body>
 </html>
