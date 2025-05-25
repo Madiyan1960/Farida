@@ -37,22 +37,25 @@
         }
 
         .background-slideshow .slide-image {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-size: cover; /* Изображение будет покрывать всю область */
-            background-position: center center; /* Центрирование изображения */
-            opacity: 0; /* Изначально невидимый */
-            transition: opacity 1.5s ease-in-out, transform 8s ease-in-out; /* Плавное появление и медленный зум */
-            transform: scale(1.0); /* Начальный размер без зума */
-        }
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* ИЗМЕНИТЕ ЭТО: вместо 'cover' используйте 'contain' */
+    background-size: contain; /* Изображение будет полностью помещаться в контейнер, не обрезаясь */
+    background-repeat: no-repeat; /* Убедитесь, что изображение не повторяется */
+    background-position: center center; /* Центрирование изображения */
+    opacity: 0;
+    transition: opacity 1.5s ease-in-out, transform 8s ease-in-out;
+    transform: scale(1.0);
+}
 
-        .background-slideshow .slide-image.active {
-            opacity: 1; /* Активный слайд полностью виден */
-            transform: scale(1.15); /* Увеличение для активного слайда */
-        }
+.background-slideshow .slide-image.active {
+    opacity: 1;
+    /* Опционально: если хотите легкое увеличение, оставьте, иначе удалите */
+    transform: scale(1.05); /* Легкое увеличение, чтобы не выходить за рамки экрана */
+}
         /* --- КОНЕЦ НОВЫХ СТИЛЕЙ --- */
 
         /* Контейнер для фиксированного анимированного фона и блесток */
