@@ -257,9 +257,7 @@
             <p><strong>Күні:</strong> <strong>09.08.25</strong></p>
             <p><strong>Басталуы:</strong> <strong>Сағат 13:00</strong></p>
         </div>
-        <div class="greeting-icon">✨</div>
-
-        <a href="https://wa.me/77757544371?text=Сәлем!%20Мен%20Фариданың%20зейнетке%20шығу%20кешіне%20келуімді%20растағым%20келеді." target="_blank" class="whatsapp-button">
+                <a href="https://wa.me/77757544371?text=Сәлем!%20Мен%20Фариданың%20зейнетке%20шығу%20кешіне%20келуімді%20растағым%20келеді." target="_blank" class="whatsapp-button">
             <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Icon" class="whatsapp-icon">
             Қатысуды растау
         </a>
@@ -347,93 +345,13 @@
 
         /* --- JAVASCRIPT ДЛЯ ФОНОВОГО СЛАЙДЕРА С КОНСОЛЬНЫМИ ЛОГАМИ --- */
         // ДОБАВЛЕН ЛОГ В НАЧАЛЕ СКРИПТА
-        console.log("=== Скрипт для слайдшоу запущен ===");
+       
 
-        const backgroundImages = [
-            'background_images/photo1.jpg',
-            
-            'background_images/photo3.jpg',
-            'background_images/photo4.jpg',
-            'background_images/photo5.jpg',
-            'background_images/photo6.jpg',
-            'background_images/photo7.jpg',
-            'background_images/photo8.jpg',
-            'background_images/photo9.jpg',
-            'background_images/photo10.jpg',
-            'background_images/photo11.jpg',
-            'background_images/photo12.jpg',
-            'background_images/photo13.jpg',
-            'background_images/photo14.jpg',
-            'background_images/photo15.jpg'
-            
-        ];
-
-        const slideshowContainer = document.querySelector('.background-slideshow');
-        let currentImageIndex = 0;
-
-        function updateBackgroundSlideshow() {
             // ДОБАВЛЕН ЛОГ В НАЧАЛЕ ФУНКЦИИ
-            console.log(`--- updateBackgroundSlideshow вызвана. Текущий индекс: ${currentImageIndex} ---`);
-
-            // Удаляем класс 'active' со старого активного слайда (если есть)
-            const activeSlide = slideshowContainer.querySelector('.slide-image.active');
-            if (activeSlide) {
-                activeSlide.classList.remove('active');
+          
                 // ДОБАВЛЕН ЛОГ
-                console.log("Удален класс 'active' со старого слайда.");
-            }
-
-            // Создаем новый элемент изображения
-            const imgElement = document.createElement('div');
-            imgElement.classList.add('slide-image');
-            imgElement.style.backgroundImage = `url('${backgroundImages[currentImageIndex]}')`;
-            
-            slideshowContainer.appendChild(imgElement);
-            // ДОБАВЛЕН ЛОГ
-            console.log(`Создан и добавлен новый слайд для: ${backgroundImages[currentImageIndex]}`);
-
-            // Добавляем класс 'active' через небольшую задержку
-            setTimeout(() => {
-                imgElement.classList.add('active');
-                // ДОБАВЛЕН ЛОГ
-                console.log(`Класс 'active' добавлен новому слайду.`);
-            }, 50);
-
-            // Удаляем старые слайды после завершения их анимации, чтобы не накапливать элементы в DOM
-            const removeAfter = 8000; 
-            setTimeout(() => {
-                const oldSlides = slideshowContainer.querySelectorAll('.slide-image');
-                oldSlides.forEach(slide => {
-                    // Удаляем все слайды, которые не являются текущим новым активным слайдом
-                    // и не имеют класса 'active' (т.е. они уже завершили анимацию исчезновения).
-                    // Это предотвращает удаление текущего или еще активного слайда
-                    if (slide !== imgElement && !slide.classList.contains('active')) { 
-                         slide.remove();
-                         // ДОБАВЛЕН ЛОГ
-                         console.log("Старый неактивный слайд удален из DOM.");
-                    }
-                });
-            }, removeAfter);
-
-
-            currentImageIndex = (currentImageIndex + 1) % backgroundImages.length;
-            // ДОБАВЛЕН ЛОГ
-            console.log(`Индекс для следующего изображения установлен на: ${currentImageIndex}`);
-        }
-
-        // Запускаем слайдшоу каждые 8 секунд (длительность трансформации)
-        // ДОБАВЛЕН ЛОГ
-        console.log("Запускаем setInterval для слайдшоу.");
-        setInterval(() => {
-            // ДОБАВЛЕН ЛОГ ВНУТРИ setInterval
-            console.log("--- setInterval сработал! ---");
-            updateBackgroundSlideshow();
-        }, 5000);
-
-        // Вызываем функцию один раз при загрузке страницы, чтобы показать первое изображение
-        // ДОБАВЛЕН ЛОГ ПЕРЕД ПЕРВЫМ ВЫЗОВОМ
-        console.log("Первый вызов updateBackgroundSlideshow при загрузке страницы.");
-        updateBackgroundSlideshow();
+                      
+       
         /* --- КОНЕЦ JAVASCRIPT ДЛЯ СЛАЙДЕРА --- */
 
         // JavaScript для создания анимированных блесток
