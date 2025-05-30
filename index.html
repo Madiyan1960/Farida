@@ -36,26 +36,11 @@
             z-index: -4; /* Самый нижний слой, под всеми остальными */
         }
 
-        .background-slideshow .slide-image {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    /* ИЗМЕНИТЕ ЭТО: вместо 'cover' используйте 'contain' */
-    background-size: contain; /* Изображение будет полностью помещаться в контейнер, не обрезаясь */
-    background-repeat: no-repeat; /* Убедитесь, что изображение не повторяется */
-    background-position: center center; /* Центрирование изображения */
-    opacity: 0;
-    transition: opacity 1.5s ease-in-out, transform 8s ease-in-out;
-    transform: scale(1.0);
-}
+        
 
-.background-slideshow .slide-image.active {
-    opacity: 1;
+
     /* Опционально: если хотите легкое увеличение, оставьте, иначе удалите */
-    transform: scale(1.05); /* Легкое увеличение, чтобы не выходить за рамки экрана */
-}
+  
         /* --- КОНЕЦ НОВЫХ СТИЛЕЙ --- */
 
         /* Контейнер для фиксированного анимированного фона и блесток */
@@ -119,10 +104,6 @@
             margin-bottom: 20px; /* Отступ снизу */
         }
 
-       
-
-       
-
         /* Заголовок */
         .header-title {
             font-family: 'Lobster', cursive;
@@ -146,7 +127,7 @@
         .content {
             font-size: 1.9em; /* Крупнее */
             
-            margin-bottom: 30px;
+            margin-bottom: 15px;
             line-height: 1.7;
             color: #2F4F4F; /* Бордовый */
             text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6); /* X Y Blur Color */
@@ -154,7 +135,7 @@
 
         /* Детали мероприятия */
         .details {
-            margin-top: 15px;
+            margin-top: 10px;
             font-size: 1.5em;
             color: #2F4F4F;
         }
@@ -168,7 +149,7 @@
         .greeting-icon {
             font-size: 5.5em; /* Крупнее */
             color: #FFD700;
-            margin-top: 15px;
+            margin-top: 10px;
             animation: bounce 2s infinite ease-in-out; /* Анимация "прыжка" */
         }
 
