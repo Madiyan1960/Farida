@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Фарида зейнетке шығу кеші</title>
     <link rel="icon" type="image/x-icon" href="favicon.ico">
-    
+
     <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Noto+Sans+KR:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
         body {
@@ -21,6 +21,7 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            overflow: hidden; /* Орнаменттердің асып кетпеуін болдырмау */
         }
 
         .background-slideshow {
@@ -173,21 +174,61 @@
                 font-size: 1em;
                 padding: 12px 20px;
             }
-            .farida-photo-container {
-                width: 100px;
-                height: 100px;
-                margin: 10px auto 20px;
-            }
             .whatsapp-icon {
                 width: 25px;
                 height: 25px;
             }
+            .ornament { /* Мобильді құрылғыларда орнаменттерді кішірейту */
+                width: 70px;
+                height: 70px;
+            }
+        }
+
+        /* Қазақ өрнектеріне арналған стильдер */
+        .ornament {
+            position: fixed;
+            width: 100px; /* Қажетті өлшемді реттеңіз */
+            height: 100px; /* Қажетті өлшемді реттеңіз */
+            background-image: url('kazakh_ornament_placeholder.png'); /* НАҚТЫ ӨРНЕК КЕСКІНІНІҢ ЖОЛЫН ОРНАТЫҢЫЗ */
+            background-size: contain; /* Өрнекті блокқа сыйғызу */
+            background-repeat: no-repeat;
+            z-index: 0; /* Фонның үстінде, бірақ мәтін астында */
+            pointer-events: none; /* Контентпен өзара әрекеттесуге кедергі жасамау үшін */
+            filter: drop-shadow(2px 2px 5px rgba(0,0,0,0.3)); /* Жеңіл көлеңке қосу */
+        }
+
+        .top-left {
+            top: 10px;
+            left: 10px;
+        }
+
+        .top-right {
+            top: 10px;
+            right: 10px;
+            transform: scaleX(-1); /* Көлденеңінен шағылыстыру (қажет болса) */
+        }
+
+        .bottom-left {
+            bottom: 10px;
+            left: 10px;
+            transform: scaleY(-1); /* Тігінен шағылыстыру (қажет болса) */
+        }
+
+        .bottom-right {
+            bottom: 10px;
+            right: 10px;
+            transform: scaleX(-1) scaleY(-1); /* Екі бағытта да шағылыстыру (қажет болса) */
         }
     </style>
 </head>
 <body>
     <div class="background-slideshow"></div>
     <div class="animated-background"></div>
+
+    <div class="ornament top-left"></div>
+    <div class="ornament top-right"></div>
+    <div class="ornament bottom-left"></div>
+    <div class="ornament bottom-right"></div>
 
     <div class="overlay">
         <h1 class="header-title">Фариданың зейнетке шығу кеші</h1>
@@ -234,61 +275,10 @@
                             toggleButton.innerHTML = '<img src="Speaker_Icon.svg" alt="Music Icon" class="whatsapp-icon"> Музыканы өшіру';
                         }
                     }).catch(error => {
-                        console.warn("Ошибка воспроизведения музыки при первом взаимодействии. Возможно, браузер блокирует. " +
-                                     "Или файл поврежден/кодек не поддерживается.", error);
+                        console.warn("Музыканы ойнатуда қате шықты. Браузер блоктауы мүмкін. " +
+                                     "Немесе файл бұзылған/кодек қолдамайды.", error);
                         if (toggleButton) {
                             toggleButton.innerHTML = '<img src="Muted_Speaker_Icon.svg" alt="Muted Music Icon" class="whatsapp-icon"> Музыканы қосу';
                         }
                     });
                 }
-                document.removeEventListener('click', startMusicOnInteraction);
-                document.removeEventListener('scroll', startMusicOnInteraction);
-                document.removeEventListener('touchstart', startMusicOnInteraction);
-            }
-
-            document.addEventListener('click', startMusicOnInteraction);
-            document.addEventListener('scroll', startMusicOnInteraction);
-            document.addEventListener('touchstart', startMusicOnInteraction);
-
-            if (toggleButton) {
-                toggleButton.addEventListener('click', () => {
-                    if (!musicStarted) {
-                        startMusicOnInteraction();
-                    } else {
-                        if (music.paused) {
-                            music.play();
-                            music.muted = false;
-                            toggleButton.innerHTML = '<img src="Speaker_Icon.svg" alt="Music Icon" class="whatsapp-icon"> Музыканы өшіру';
-                        } else {
-                            music.pause();
-                            toggleButton.innerHTML = '<img src="Muted_Speaker_Icon.svg" alt="Muted Music Icon" class="whatsapp-icon"> Музыканы қосу';
-                        }
-                    }
-                });
-
-                if (music.paused || music.muted) {
-                    toggleButton.innerHTML = '<img src="Muted_Speaker_Icon.svg" alt="Muted Music Icon" class="whatsapp-icon"> Музыканы қосу';
-                }
-            }
-        });
-
-        function createGlitterParticle() {
-            const particle = document.createElement('div');
-            particle.classList.add('glitter-particle');
-            document.querySelector('.animated-background').appendChild(particle);
-            const size = Math.random() * 8 + 4;
-            particle.style.width = `${size}px`;
-            particle.style.height = `${size}px`;
-            particle.style.left = `${Math.random() * 100}vw`;
-            particle.style.animationDuration = `${Math.random() * 6 + 6}s`;
-            particle.style.animationDelay = `-${Math.random() * 6}s`;
-            const colors = ['#FFD700', '#FFC0CB', '#ADD8E6', '#FFFFFF', '#FF4500', '#9400D3', '#00FFFF'];
-            particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-            particle.addEventListener('animationend', () => {
-                particle.remove();
-            });
-        }
-        setInterval(createGlitterParticle, 1000);
-    </script>
-</body>
-</html>
